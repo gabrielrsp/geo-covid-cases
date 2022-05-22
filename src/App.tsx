@@ -16,8 +16,7 @@ function App() {
     .from('covidvariants')
     .select()
     setItems(data)
-
-    console.log("data: ", data)
+    console.log(data)
   }
 
 
