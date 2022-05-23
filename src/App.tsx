@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from './api/supabase'
 import ReactTooltip from "react-tooltip"
 import MapChart from './MapChart'
-import alphaCodes from '../public/alpha3code.json';
+import alphaCodes from './assets/alpha3code.json';
 import { Show } from './components/Show'
 
 function App () {
@@ -28,7 +28,9 @@ function App () {
 
 
     const countriesVariantsAndCases = [] as any
-    data.forEach((item: any) => countriesVariantsAndCases.push({ location: item.location, variant: item.variant, cases: item.num_sequences }))
+    data.forEach((item: any) => countriesVariantsAndCases
+    .push({ location: item.location, variant: item.variant, cases: item.num_sequences }))
+    
     setCountriesVariantsAndCasesByDate(countriesVariantsAndCases)
 
     const casesPerCountryByDateWithCode = [] as any
@@ -67,10 +69,7 @@ function App () {
   }
 
   function setTooltipContent (contentToolTip: any) {
-
-    if (!!contentToolTip) {
-      setContent(contentToolTip)
-    }
+    if (!!contentToolTip) setContent(contentToolTip)
   }
 
   return (
