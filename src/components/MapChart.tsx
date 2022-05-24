@@ -27,9 +27,8 @@ export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
       }}
     >
       <ZoomableGroup>
-        <Sphere id="rsm-sphere" stroke="#e6e6e6" fill="transparent" strokeWidth={0.5} />
-        <Graticule stroke="#e6e6e6" strokeWidth={0.5} />
-
+        <Sphere id="rsm-sphere" stroke="#d9d9d9" fill="transparent" strokeWidth={0.5} />
+        <Graticule stroke="#d9d9d9" strokeWidth={0.5} />
         {dataForMap.length > 0 && (
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
@@ -39,7 +38,7 @@ export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={d ? colorScale(d["num_sequences_total"]) : "#e6e6e6" as any}
+                    fill={d ? colorScale(d["num_sequences_total"]) : "#d9d9d9" as any}
                     onMouseEnter={() => {
                       setTooltipContent(d);
                     }}
