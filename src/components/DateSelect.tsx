@@ -3,10 +3,10 @@ import { useCovidCases } from "../hooks/useCovidCases";
 import Select from 'react-select'
 
 export function DateSelect () {
-  const { availableDates, getCovidCasesByDate, getCovidCasesUntilDate } = useCovidCases()
+  const { availableDates, getCovidCasesOfDate, getCovidCasesUntilDate } = useCovidCases()
 
   function getSelectedDate (item: any) {
-    getCovidCasesByDate(item.value)
+    getCovidCasesOfDate(item.value)
     getGroupDate(item.value)
   }
 

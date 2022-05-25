@@ -6,24 +6,22 @@ import { Show } from "./Show";
 import ReactTooltip from "react-tooltip";
 
 export function MapContent () {
-
-  const { getCovidCasesByDate, covidCases } = useCovidCases()
+  const { covidCasesOfDate, covidCasesUntilDate, optionView } = useCovidCases()
   const [content, setContent] = useState<any>({})
   const { Container } = MapContent
 
   useEffect(() => {
-  }, [covidCases])
+
+  }, [covidCasesOfDate, covidCasesUntilDate, optionView])
 
   function setTooltipContent (contentToolTip: any) {
     if (!!contentToolTip) setContent(contentToolTip)
   }
 
-  if (!covidCases) return <pre>Loading...</pre>;
-
   return (
     <>
       <Container>
-        <MapChart setTooltipContent={setTooltipContent} dataForMap={covidCases} />
+        <MapChart setTooltipContent={setTooltipContent} dataForMap={optionView === 'casesUntilDate' ? covidCasesUntilDate : covidCasesOfDate} />
         <HeaderInfo headerInfo={content} />
       </Container>
     </>

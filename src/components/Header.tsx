@@ -1,6 +1,7 @@
 import React from "react";
 import styled from '@emotion/styled'
 import { DateSelect } from "./DateSelect";
+import { Radio } from "./Radio";
 
 export const Header = () => {
   const { Container, Title, ContainerSelect } = Header
@@ -10,6 +11,7 @@ export const Header = () => {
       <Title>Covid Daily Cases</Title>
       <ContainerSelect>
         <DateSelect />
+        <Radio/>
       </ContainerSelect>
     </Container>
   )
@@ -26,6 +28,8 @@ Header.Title = styled.h1`
 `
 
 Header.ContainerSelect = styled.div`
-  justify-self:end;
-  width: 200px;
+  display: flex;
+  justify-content:end;
+
+  width: 600px;
 `

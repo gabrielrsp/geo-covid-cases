@@ -13,7 +13,7 @@ const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-  .domain([0, 8000])
+  .domain([0, 90000])
   .range(["#ffd4cc", "#ff2600"] as any);
 
 export const MapChart = ({ setTooltipContent, dataForMap }: any) => {

@@ -26,15 +26,22 @@ interface CovidCasesMap {
 
 }
 
+interface OptionView {
+  optionView: 'casesOfDate' | 'casesUntilDate' 
+}
+
 interface CovidCasesProviderProps {
   children: ReactNode;
 }
 
 interface CovidCasesContextData {
-  covidCases: CovidCasesMap[];
+  covidCasesOfDate: CovidCasesMap[];
+  covidCasesUntilDate: CovidCasesMap[];
+  optionView: string;
   availableDates: any
-  getCovidCasesByDate: (dataRegistro: string) => Promise<any>;
+  getCovidCasesOfDate: (dataRegistro: string) => Promise<any>;
   getCovidCasesUntilDate: (groupDate: Array<string>) => Promise<any>;
+  setSelectedOptionView: (optionView: OptionView) => void;
 }
 
 
@@ -44,14 +51,21 @@ const CovidCasesContext = createContext<CovidCasesContextData>(
 
 
 
+
 export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
-  const [covidCases, setCovidCases] = useState<CovidCasesMap[]>([]);
+  const [covidCasesOfDate, setCovidCases] = useState<CovidCasesMap[]>([]);
+  const [covidCasesUntilDate, setCovidCasesUntilDate] = useState<CovidCasesMap[]>([]);
   const [availableDates, setAvailableDates] = useState<any[]>([])
+  const [optionView, setOptionView] = useState('')
 
   useEffect(() => {
-    getCovidCasesByDate('2021-02-08')
+    setOptionView('casesOfDate')
     fecthAllAvailableDates()
   }, [])
+
+  function setSelectedOptionView (optionView: string) {
+    setOptionView(optionView)
+  }
 
   async function fecthAllAvailableDates () {
     const { data }: any = await supabase
@@ -63,13 +77,13 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
     setAvailableDates(formatedDates)
   }
 
-  async function getCovidCasesByDate (dataRegistro: string) {
+  async function getCovidCasesOfDate (dataRegistro: string) {
     const { data }: any = await supabase
       .from('covidvariants')
       .select('location, date, variant, num_sequences, num_sequences_total')
-      .match({ date: dataRegistro || '2021-02-08' })
+      .match({ date: dataRegistro })
 
-    const uniqDataByDate = [...new Map(data.map((item: any) => [item['num_sequences_total'], item])).values()] as any
+    const uniqDataByDate = [...new Map(data.map((item: any) => [item['location'], item])).values()] as any
 
     const countriesVariantsAndCases = [] as any
     data.forEach((item: CovidCases) => countriesVariantsAndCases
@@ -92,9 +106,7 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
           num_sequences_total: cas.num_sequences_total,
         })
     })
-
     setCovidCases(casesPerCountryByDateWithCode)
-
   }
 
 
@@ -103,8 +115,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
       .from('covidvariants')
       .select('location, date, variant, num_sequences, num_sequences_total')
       .in('date', groupDate)
-
-      console.log('ddddddddddddddddd ',data)
 
     const extractedCountries = data.map((item: CovidCases) => item.location)
     const countries = [...new Set(extractedCountries)];
@@ -164,10 +174,10 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
     })
 
 
+    const finalFormatedData: any = []
     FlatedInfo.forEach((item: any) => {
 
       let holder: any = {};
-
       item.arrayFlated[0].forEach(function (d: any) {
         if (holder.hasOwnProperty(d.variant)) {
           holder[d.variant] = holder[d.variant] + d.num_sequences;
@@ -176,8 +186,9 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
         }
       });
 
-      var variants = [];
+      const ISOfound: any = alphaCodes.find(el => el.name === item.location)
 
+      var variants = [];
       for (var prop in holder) {
         variants.push({ variant: prop, cases: holder[prop] });
       }
@@ -190,13 +201,14 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
       }
 
       const non_who = variants.filter((v: any) => v.variant === 'non_who')
-      console.log('aaaaaaaaaaaaaaaa', { location: item.location, num_sequences: non_who[0].cases, num_sequences_total, date: groupDate[groupDate.length - 1], variants });
+      finalFormatedData.push({ location: item.location, num_sequences: non_who[0].cases, num_sequences_total, ISO3: ISOfound['alpha-3'], date: groupDate[groupDate.length - 1], variants })
 
     })
+    setCovidCasesUntilDate(finalFormatedData)
   }
 
   return (
-    <CovidCasesContext.Provider value={{ covidCases, availableDates, getCovidCasesByDate, getCovidCasesUntilDate }}>
+    <CovidCasesContext.Provider value={{ covidCasesOfDate, covidCasesUntilDate, optionView, setSelectedOptionView, availableDates, getCovidCasesOfDate, getCovidCasesUntilDate }}>
       {children}
     </CovidCasesContext.Provider>
   );
@@ -207,12 +219,3 @@ export function useCovidCases () {
   const context = useContext(CovidCasesContext);
   return context;
 }
-
-
-
-
-
-
-
-
-
