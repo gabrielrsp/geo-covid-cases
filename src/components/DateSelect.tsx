@@ -3,11 +3,11 @@ import { useCovidCases } from "../hooks/useCovidCases";
 import Select from 'react-select'
 
 export function DateSelect () {
-  const { availableDates, getCovidCasesByDate } = useCovidCases()
-  const [content, setContent] = useState<any>({})
+  const { availableDates, getCovidCasesByDate, getCovidCasesUntilDate } = useCovidCases()
 
-  function setSelectedDate (item: any) {
+  function getSelectedDate (item: any) {
     getCovidCasesByDate(item.value)
+    getGroupDate(item.value)
   }
 
   const dates: any = []
@@ -19,13 +19,27 @@ export function DateSelect () {
     .sort((dateA: any, dateB: any) => dateA - dateB)
     .map((date: any) => new Date(date).toISOString().split('T')[0])
 
+
+  function getGroupDate (selectedDate: any) {
+    const combinedDates: any = []
+    for (let i in sortedDates) {
+      if (sortedDates[i] === selectedDate) {
+        combinedDates.push(sortedDates[i])
+        break
+      }
+      combinedDates.push(sortedDates[i])
+    }
+
+    getCovidCasesUntilDate(combinedDates)
+  }
+
   const options: any = []
   sortedDates.forEach((date: string) => {
     options.push({ value: date, label: date })
   })
 
   return (
-    <Select onChange={(item) => setSelectedDate(item)} placeholder={"Select date"} options={options} />
+    <Select onChange={(item) => getSelectedDate(item)} placeholder={"Select date"} options={options} />
   )
 }
 
