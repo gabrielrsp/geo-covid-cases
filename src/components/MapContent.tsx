@@ -30,13 +30,14 @@ export function MapContent () {
 
 MapContent.Container = styled.div`
   width: 69rem;
-  height: 52rem;
+  height: 45rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: '#fff';
   margin: auto;
+  margin-top: 20px;
   border: 2px solid #cccccc;
   border-radius: 5px;
 `

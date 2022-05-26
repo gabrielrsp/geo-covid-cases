@@ -8,7 +8,9 @@ export const Header = () => {
   return (
     <Container>
       <div></div>
+      <div>
       <Title>Covid Daily Cases</Title>
+      </div>
       <ContainerSelect>
         <DateSelect />
         <Radio/>
@@ -19,8 +21,8 @@ export const Header = () => {
 
 Header.Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  margin: 20px;
 `
 
 Header.Title = styled.h1`
@@ -30,6 +32,4 @@ Header.Title = styled.h1`
 Header.ContainerSelect = styled.div`
   display: flex;
   justify-content:end;
-
-  width: 600px;
 `

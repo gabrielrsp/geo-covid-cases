@@ -13,7 +13,7 @@ const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-  .domain([0, 90000])
+  .domain([0, 95000])
   .range(["#ffd4cc", "#ff2600"] as any);
 
 export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
@@ -23,8 +23,9 @@ export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
       data-tip={{}}
       projectionConfig={{
         rotate: [-10, 0, 0],
-        scale: 147
+        scale: 170
       }}
+      width={920}
     >
       <ZoomableGroup>
         <Sphere id="rsm-sphere" stroke="#d9d9d9" fill="transparent" strokeWidth={0.5} />

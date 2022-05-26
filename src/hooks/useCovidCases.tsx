@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { supabase } from '../services/supabase';
 import alphaCodes from '../assets/alpha3code.json';
-import { totalmem } from 'os';
 
 interface CovidCases {
   date: string;
@@ -10,7 +9,6 @@ interface CovidCases {
   num_sequences_total: number;
   variant: string;
 }
-
 interface Variant {
   cases: string;
   variant: string;
@@ -23,11 +21,10 @@ interface CovidCasesMap {
   num_sequences: string;
   num_sequences_total: number;
   variants: Variant[];
-
 }
 
 interface OptionView {
-  optionView: 'casesOfDate' | 'casesUntilDate' 
+  optionView: 'casesOfDate' | 'casesUntilDate'
 }
 
 interface CovidCasesProviderProps {
@@ -44,13 +41,9 @@ interface CovidCasesContextData {
   setSelectedOptionView: (optionView: OptionView) => void;
 }
 
-
 const CovidCasesContext = createContext<CovidCasesContextData>(
   {} as CovidCasesContextData
 );
-
-
-
 
 export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   const [covidCasesOfDate, setCovidCases] = useState<CovidCasesMap[]>([]);
@@ -120,7 +113,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
     const countries = [...new Set(extractedCountries)];
 
     const InfoByCountry: any = []
-
     countries.forEach((country: any) => {
       const arrayCasesCountry: any = []
       data.forEach((covidCase: CovidCases) => {
@@ -135,7 +127,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
     const InfoByDate: any = []
     InfoByCountry.forEach((countryInfo: any) => {
       groupDate.forEach((date) => {
-
         const arrayCasesDate: any = []
         countryInfo.arrayCasesCountry.forEach((covidCase: CovidCases) => {
 
@@ -144,7 +135,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
           }
         })
         InfoByDate.push({ location: countryInfo.location, date, arrayCasesDate })
-
       })
     })
 
@@ -152,7 +142,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
 
     countries.forEach((country: any) => {
       const arrayRawCases: any = []
-
       InfoByDate.forEach((item: any) => {
         if (country === item.location) {
           arrayRawCases.push(item.arrayCasesDate)
@@ -212,7 +201,6 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
       {children}
     </CovidCasesContext.Provider>
   );
-
 }
 
 export function useCovidCases () {
