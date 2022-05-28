@@ -8,7 +8,7 @@ import { useCovidCases } from '../hooks/useCovidCases';
 import { useEffect } from 'react';
 export function Main () {
 
-  const { setSelectedOptionView, optionView, dateView, getCovidCasesOfDate, getCovidCasesUntilDate, availableDates } = useCovidCases()
+  const { setSelectedOptionView, getCovidCasesOfDate, getCovidCasesUntilDate, availableDates } = useCovidCases()
   const { search } = useLocation();
   const splitedUrl = search.split('/')
   const indexDateView = splitedUrl.indexOf('?dateview')

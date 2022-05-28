@@ -11,6 +11,7 @@ import {
   Graticule,
   ZoomableGroup
 } from "react-simple-maps";
+import { useCovidCases } from "../hooks/useCovidCases";
 
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
@@ -19,9 +20,9 @@ const colorScale = scaleLinear()
   .range(["#ffd4cc", "#ff2600"] as any);
 
 export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
-
+  const { loading } = useCovidCases()
   const { LoadingContainer } = MapChart
-  if (!dataForMap.length) {
+  if (loading ) {
     return (
       <LoadingContainer>
         <LoadingOutlined style={{ fontSize: 75, color: '#ff5233' }} spin />

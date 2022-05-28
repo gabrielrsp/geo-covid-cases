@@ -32,7 +32,8 @@ interface CovidCasesContextData {
   covidCasesUntilDate: CovidCasesMap[];
   optionView: string;
   dateView: string;
-  availableDates: any
+  availableDates: any;
+  loading: Boolean;
   getCovidCasesOfDate: (dataRegistro: string) => Promise<any>;
   getCovidCasesUntilDate: (groupDate: Array<string>) => Promise<any>;
   setSelectedOptionView: (optionView: string) => void;
@@ -48,7 +49,8 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   const [availableDates, setAvailableDates] = useState<any[]>([])
   const [optionView, setOptionView] = useState('')
   const [dateView, setDateView] = useState('')
-  
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     setOptionView('casesOfDate')
     fecthAllAvailableDates()
@@ -69,8 +71,10 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   }
 
   async function getCovidCasesOfDate (dataRegistro: string) {
+    setLoading(true)
+    setCovidCases([])
     setDateView(dataRegistro)
-    
+
     const { data }: any = await supabase
       .from('covidvariants')
       .select('location, date, variant, num_sequences, num_sequences_total')
@@ -100,10 +104,13 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
         })
     })
     setCovidCases(casesPerCountryByDateWithCode)
+    setLoading(false)
   }
 
 
   async function getCovidCasesUntilDate (groupDate: Array<string>) {
+    setLoading(true)
+    setCovidCasesUntilDate([])
     const { data }: any = await supabase
       .from('covidvariants')
       .select('location, date, variant, num_sequences, num_sequences_total')
@@ -194,10 +201,22 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
 
     })
     setCovidCasesUntilDate(finalFormatedData)
+    setLoading(false)
   }
 
   return (
-    <CovidCasesContext.Provider value={{ covidCasesOfDate, covidCasesUntilDate, optionView, dateView, setSelectedOptionView, availableDates, getCovidCasesOfDate, getCovidCasesUntilDate }}>
+    <CovidCasesContext.Provider
+      value={{
+        covidCasesOfDate,
+        covidCasesUntilDate,
+        optionView,
+        dateView,
+        setSelectedOptionView,
+        availableDates,
+        getCovidCasesOfDate,
+        getCovidCasesUntilDate,
+        loading
+      }}>
       {children}
     </CovidCasesContext.Provider>
   );
