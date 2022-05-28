@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Tools" src="/src/assets/virus-image.png" width="160px" />
+  <img src="/src/assets/virus-image.png" width="160px" />
 </h1>
 
 <h3 align="center">Geo Covid Cases</h3>
