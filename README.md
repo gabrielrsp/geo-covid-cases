@@ -15,8 +15,8 @@
 
   -  [ReactJS](https://reactjs.org/)
   -  [React Router](https://github.com/ReactTraining/react-router)
-  -  [Supabase]([https://github.com/axios/axios](https://supabase.com/))
-  -  [styled-components](https://www.styled-components.com/)
+  -  [Supabase](https://supabase.com/)
+  -  [Emotion Styled](https://emotion.sh/docs/styled/)
 
 ## 🔧 Run Project Locally
 
