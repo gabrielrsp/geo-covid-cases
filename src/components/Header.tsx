@@ -31,5 +31,6 @@ Header.Title = styled.h1`
 
 Header.ContainerSelect = styled.div`
   display: flex;
-  justify-content:end;
+  justify-content: end;
+  align-items: center
 `

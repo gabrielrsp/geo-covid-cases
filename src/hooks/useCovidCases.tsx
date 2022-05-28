@@ -23,10 +23,6 @@ interface CovidCasesMap {
   variants: Variant[];
 }
 
-interface OptionView {
-  optionView: 'casesOfDate' | 'casesUntilDate'
-}
-
 interface CovidCasesProviderProps {
   children: ReactNode;
 }
@@ -35,10 +31,11 @@ interface CovidCasesContextData {
   covidCasesOfDate: CovidCasesMap[];
   covidCasesUntilDate: CovidCasesMap[];
   optionView: string;
+  dateView: string;
   availableDates: any
   getCovidCasesOfDate: (dataRegistro: string) => Promise<any>;
   getCovidCasesUntilDate: (groupDate: Array<string>) => Promise<any>;
-  setSelectedOptionView: (optionView: OptionView) => void;
+  setSelectedOptionView: (optionView: string) => void;
 }
 
 const CovidCasesContext = createContext<CovidCasesContextData>(
@@ -50,7 +47,8 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   const [covidCasesUntilDate, setCovidCasesUntilDate] = useState<CovidCasesMap[]>([]);
   const [availableDates, setAvailableDates] = useState<any[]>([])
   const [optionView, setOptionView] = useState('')
-
+  const [dateView, setDateView] = useState('')
+  
   useEffect(() => {
     setOptionView('casesOfDate')
     fecthAllAvailableDates()
@@ -71,6 +69,8 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   }
 
   async function getCovidCasesOfDate (dataRegistro: string) {
+    setDateView(dataRegistro)
+    
     const { data }: any = await supabase
       .from('covidvariants')
       .select('location, date, variant, num_sequences, num_sequences_total')
@@ -197,7 +197,7 @@ export function CovidCasesProvider ({ children }: CovidCasesProviderProps) {
   }
 
   return (
-    <CovidCasesContext.Provider value={{ covidCasesOfDate, covidCasesUntilDate, optionView, setSelectedOptionView, availableDates, getCovidCasesOfDate, getCovidCasesUntilDate }}>
+    <CovidCasesContext.Provider value={{ covidCasesOfDate, covidCasesUntilDate, optionView, dateView, setSelectedOptionView, availableDates, getCovidCasesOfDate, getCovidCasesUntilDate }}>
       {children}
     </CovidCasesContext.Provider>
   );

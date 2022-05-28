@@ -12,7 +12,7 @@ export function MapContent () {
 
   useEffect(() => {
 
-  }, [covidCasesOfDate, covidCasesUntilDate, optionView])
+  }, [covidCasesOfDate, covidCasesUntilDate, optionView,])
 
   function setTooltipContent (contentToolTip: any) {
     if (!!contentToolTip) setContent(contentToolTip)

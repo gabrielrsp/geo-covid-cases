@@ -2,10 +2,25 @@ import { useCovidCases } from "../hooks/useCovidCases"
 import { Slider } from 'antd';
 import type { SliderMarks } from 'antd/lib/slider';
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import { generatePath, useHistory } from "react-router-dom";
 
 export const DateSlider = () => {
   const { ContainerSlider } = DateSlider
-  const { availableDates, getCovidCasesOfDate, getCovidCasesUntilDate } = useCovidCases()
+  const { availableDates, getCovidCasesOfDate, getCovidCasesUntilDate, optionView, dateView } = useCovidCases()
+
+  const history = useHistory()
+
+  useEffect(() => {
+    if (dateView && optionView) {
+      const gp = generatePath("dateview/:dateView/optionview/:optionView", {
+        dateView: dateView,
+        optionView: optionView
+      });
+      history.push({ search: gp.toString() })
+    }
+  }, [optionView, dateView])
+
 
   const dates: any = []
   availableDates.forEach((date: any) => dates.push(new Date(date).getTime()))
@@ -62,7 +77,7 @@ export const DateSlider = () => {
 
   return (
     <ContainerSlider>
-      <Slider marks={marks} step={null} defaultValue={0} tooltipVisible={false} onChange={(e: any) => changeMarkDate(e)} />
+      <Slider marks={marks} step={null} defaultValue={0} tooltipVisible={false} onAfterChange={(e: any) => changeMarkDate(e)} />
     </ContainerSlider>
   )
 }

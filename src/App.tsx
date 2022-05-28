@@ -1,21 +1,17 @@
-import React from 'react'
-import { CovidCasesProvider, useCovidCases } from './hooks/useCovidCases';
-import { MapContent } from './components/MapContent';
+import { CovidCasesProvider } from './hooks/useCovidCases';
 import { GlobalStyle } from './styles/GlobalStyles';
-import { Header } from './components/Header';
-import { DateSlider } from './components/DateSlider';
+import { BrowserRouter } from "react-router-dom";
 import 'antd/dist/antd.css'
+import { Main } from './components/Main';
 
 function App () {
   return (
-    <>
-      <GlobalStyle />
+    <BrowserRouter>
       <CovidCasesProvider>
-        <Header />
-        <DateSlider/>
-        <MapContent />
+        <Main />
+        <GlobalStyle />
       </CovidCasesProvider>
-    </>
+    </BrowserRouter>
   )
 }
 

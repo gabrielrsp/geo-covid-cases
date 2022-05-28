@@ -1,5 +1,8 @@
 import React from "react";
 import { scaleLinear } from "d3-scale";
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import styled from "@emotion/styled";
 import {
   ComposableMap,
   Geographies,
@@ -9,14 +12,23 @@ import {
   ZoomableGroup
 } from "react-simple-maps";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
   .domain([0, 95000])
   .range(["#ffd4cc", "#ff2600"] as any);
 
 export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
+
+  const { LoadingContainer } = MapChart
+  if (!dataForMap.length) {
+    return (
+      <LoadingContainer>
+        <LoadingOutlined style={{ fontSize: 75, color: '#ff5233' }} spin />
+        <strong>Loading...</strong>
+      </LoadingContainer>
+    )
+  }
 
   return (
     <ComposableMap
@@ -56,5 +68,10 @@ export const MapChart = ({ setTooltipContent, dataForMap }: any) => {
     </ComposableMap>
   );
 };
+
+
+MapChart.LoadingContainer = styled.div`
+  display: contents;
+`
 
 export default MapChart;
