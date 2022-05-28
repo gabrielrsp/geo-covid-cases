@@ -10,6 +10,10 @@
 ## 💻 About the project
 
  Geo Covid Cases provides information about covid cases around the world throughout the days.
+ 
+ ## Demo
+
+![](covidcases.gif)
 
  #### Technologies Used 
 
