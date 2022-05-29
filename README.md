@@ -54,7 +54,7 @@ ex: `yarn dev` or `npm dev`
 
 Open [http://localhost:3000](http://localhost:3000) to see on the browser
 
-#### The application is published on https://graceful-crisp-d28f10.netlify.app/
+### This application is published on https://graceful-crisp-d28f10.netlify.app/
 
 
 
