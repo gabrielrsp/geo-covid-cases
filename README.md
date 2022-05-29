@@ -28,7 +28,7 @@
   Create a new project on [Supabase](https://supabase.com/)
 
 ### Upload the database
-Upload the CSV file obtained from [Kaggle](https://www.kaggle.com/datasets/yamqwe/omicron-covid19-variant-daily-cases) or this [link](https://challenges.coode.sh/covid/data/covid-variants.csv.)
+Upload the CSV file obtained from [Kaggle](https://www.kaggle.com/datasets/yamqwe/omicron-covid19-variant-daily-cases) or this [link](https://challenges.coode.sh/covid/data/covid-variants.csv)
 
 ### Clone this repository
 
