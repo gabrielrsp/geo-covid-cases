@@ -35,7 +35,7 @@ Upload the CSV file obtained from [Kaggle](https://www.kaggle.com/datasets/yamqw
 #### `git clone https://github.com/gabrielrsp/geo-covid-cases.git`
 
 ### Set the environment variables
-Create a .env file on the root of the project and assign the generated api key and url from supabase to an environment variable using the .env_template as reference
+Create a .env file on the root of the project and assign the generated api key and url from supabase to an environment variable using the .env.template as reference
 
 `VITE_SUPABASE_KEY='your-supabase-key'` <br>
 `VITE_SUPABASE_URL='your-supabase-url'`
