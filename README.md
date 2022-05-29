@@ -17,10 +17,13 @@
 
  #### Technologies Used 
 
+  -  [Typescript](https://www.typescriptlang.org/)
   -  [ReactJS](https://reactjs.org/)
   -  [React Router](https://github.com/ReactTraining/react-router)
   -  [Supabase](https://supabase.com/)
   -  [Emotion Styled](https://emotion.sh/docs/styled/)
+  -  [React Simple Maps](https://www.react-simple-maps.io/)
+  
 
 ## 🔧 Run Project Locally
 
