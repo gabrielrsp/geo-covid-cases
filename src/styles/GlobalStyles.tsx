@@ -7,14 +7,6 @@ export function GlobalStyle() {
         :root {
           --background: #fff;
           --red: #ff5455;
-          --green: #5cd65c;
-          --blue-dark: #343148;
-          --light-gray:RGBA(179,200,203,0.26);
-          --text-title: #363f5f;
-          --text-body: #b3c8cb;
-          --gray: #d9d9d9
-          --background: #fff;
-          --shape: #ffffff;
         }
 
         * {
@@ -41,17 +33,6 @@ export function GlobalStyle() {
           color: #343148;
           margin: 3px;
         }
-
-        /* h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        strong {
-          color: #FFF;
-          font-weight: 700;
-        } */
 
         button {
           cursor: pointer;
