@@ -41,3 +41,5 @@ Assuming you already have npm or yarn or any package manager
 #### The application will run on port 3000
 
 Open [http://localhost:3000](http://localhost:3000) to see on the browser
+
+#### The application is published on https://graceful-crisp-d28f10.netlify.app/
